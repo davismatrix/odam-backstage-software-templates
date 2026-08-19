@@ -46,8 +46,6 @@ spec:
       name: Publish
       action: publish:github
       input:
-        allowedHosts: 
-          - github.com
         description: This is ${{ parameters.app_name }}
         repoUrl: github.com?owner=davismatrix&repo=${{ parameters.app_name }}
         protectDefaultBranch: false
