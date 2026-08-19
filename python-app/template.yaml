@@ -31,18 +31,6 @@ spec:
             - uat
             - prod
 
-    - title: Choose a location
-      required:
-        - repoUrl
-      properties:
-        repoUrl:
-          title: Repository Location
-          type: string
-          ui:field: RepoUrlPicker
-          ui:options:
-            allowedHosts:
-              - github.com
-
   # here's the steps that are executed in series in the scaffolder backend
   steps:
     - id: fetchBase
@@ -51,23 +39,18 @@ spec:
       input:
         url: ./template
         values:
-          name: ${{ parameters.name }}
-          owner: ${{ parameters.owner }}
-
-    - id: fetchDocs
-      name: Fetch Docs
-      action: fetch:plain
-      input:
-        targetPath: ./community
-        url: https://github.com/backstage/community/tree/main/backstage-community-sessions
+          app_name: ${{ parameters.app_name }}
+          app_env: ${{ parameters.app_environment }}
 
     - id: publish
       name: Publish
       action: publish:github
       input:
-        description: This is ${{ parameters.name }}
-        repoUrl: ${{ parameters.repoUrl }}
-        defaultBranch: 'main'
+        allowedHosts: 
+          - github.com
+        description: This is ${{ parameters.app_name }}
+        repoUrl: github.com?owner=davismatrix&repo=${{ parameters.app_name }}
+        protectDefaultBranch: false
 
     - id: register
       name: Register
