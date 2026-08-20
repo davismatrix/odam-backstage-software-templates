@@ -1,2 +1,5 @@
 .vscode/
 .DS_Store
+python-app/template/t4s/*
+python-app/template/instance
+python-app/template/ingress-controller

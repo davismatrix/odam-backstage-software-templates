@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notebook</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 700px; margin: 30px auto; padding: 20px; background-color: #bce4cc; }
+        .note-card { background: white; padding: 15px; margin-top: 15px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: relative; }
+        .note-card1 { background: rgb(238, 242, 244); padding: 15px; margin-top: 15px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: relative; }
+        .delete-btn { position: absolute; top: 15px; right: 15px; color: #cc0000; text-decoration: none; font-weight: bold; }
+        input, textarea { width: 100%; padding: 8px; margin-bottom: 10px; box-sizing: border-box; }
+        button { background: #007bff; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Davismatrix's App!</h1>
+    <h2>Digital Notepad</h2>
+    
+    <div style="background: white; padding: 20px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+        <h3>Add New Note</h3>
+        <form action="/create" method="POST">
+            <input type="text" name="title" placeholder="Note Title" required>
+            <textarea name="content" rows="4" placeholder="Write your note details here..." required></textarea>
+            <button type="submit">Save Note</button>
+        </form>
+    </div>
+
+
+    <div class="note-card">
+        <h3>Upload Your T4</h3>
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".pdf">
+        <button type="submit">Upload PDF</button>
+        </form>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+
+    <div class="note-card1">
+    <h2>Download your T4</h2>
+
+    <ul>
+    {% for file in files %}
+    <li>
+        {{ file }}
+        -
+        <a href="{{ url_for('download_file', filename=file) }}">
+            Download
+        </a>
+    </li>
+    {% else %}
+    <li>No PDFs uploaded.</li>
+    {% endfor %}
+    </ul>
+    </div>
+</body>
+
+    <h3>Saved Notes</h3>
+    {% for note in notes %}
+    <div class="note-card">
+        <h4>{{ note.title }}</h4>
+        <p>{{ note.content }}</p>
+        <a class="delete-btn" href="{{ url_for('delete_note', note_id=note.id) }}">X</a>
+    </div>
+    {% else %}
+    <p>No notes saved yet.</p>
+    {% endfor %}
+
+    <div class="note-card1">
+        <h4>About This App</h4>
+        <p><a href='http://dmatrix-python-app.local/api/v1/details'>Application Details</a> | <a href='http://dmatrix-python-app.local/api/v1/healthz'>Health Status</a></p>
+    </div>
+</body>
+</html>

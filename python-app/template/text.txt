@@ -1,4 +1,0 @@
-Hello
-
-The app's name is: ${{ values.app_name}}
-The app is deployed into ${{ values.app_env }} environment

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dmatrix-python-app
+  labels:
+    app: dmatrix-python-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dmatrix-python-app
+  template:
+    metadata:
+      labels:
+        app: dmatrix-python-app
+    spec:
+      containers:
+      - name: dmatrix-python-app
+        image: davismatrix/dmatrix-python-app:lastest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5001
