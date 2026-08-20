@@ -49,6 +49,7 @@ spec:
         description: This is ${{ parameters.app_name }}
         repoUrl: github.com?owner=Odam-Services-Limited&repo=${{ parameters.app_name }}
         protectDefaultBranch: false
+        repoVisibility: public
 
     - id: register
       name: Register
