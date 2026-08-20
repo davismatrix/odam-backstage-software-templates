@@ -34,49 +34,48 @@
         </form>
     </div>
 
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
+    ${{ '{% with messages = get_flashed_messages() %}' }}
+    ${{ '{% if messages %}' }}
         <ul>
-        {% for message in messages %}
+        ${{ '{% for message in messages %}' }}
             <li>{{ message }}</li>
-        {% endfor %}
+        ${{ '{% endfor %}' }}
         </ul>
-    {% endif %}
-    {% endwith %}
+    ${{ '{% endif %}' }}
+    ${{ '{% endwith %}' }}
 
     <div class="note-card1">
     <h2>Download your T4</h2>
 
     <ul>
-    {% for file in files %}
+    ${{ '{% for file in files %}' }}
     <li>
-        {{ file }}
+        ${{ '{{ file }}' }}
         -
-        <a href="{{ url_for('download_file', filename=file) }}">
+        <a href="${{ '{{ url_for('download_file', filename=file) }}' }}">
             Download
         </a>
     </li>
-    {% else %}
+    ${{ '{% else %}' }}
     <li>No PDFs uploaded.</li>
-    {% endfor %}
+    ${{ '{% endfor %}' }}
     </ul>
     </div>
 </body>
 
     <h3>Saved Notes</h3>
-    {% for note in notes %}
+    ${{ '{% for note in notes %}' }}
     <div class="note-card">
         <h4>{{ note.title }}</h4>
         <p>{{ note.content }}</p>
-        <a class="delete-btn" href="{{ url_for('delete_note', note_id=note.id) }}">X</a>
+        <a class="delete-btn" href="${{ '{{ url_for('delete_note', note_id=note.id) }}' }}">X</a>
     </div>
-    {% else %}
+    ${{ '{% else %}' }}
     <p>No notes saved yet.</p>
-    {% endfor %}
-
+    ${{ '{% endfor %}' }}
     <div class="note-card1">
         <h4>About This App</h4>
-        <p><a href='http://dmatrix-python-app.local/api/v1/details'>Application Details</a> | <a href='http://dmatrix-python-app.local/api/v1/healthz'>Health Status</a></p>
+        <p><a href='http://${{ values.app_name }}-${{ values.app_env }}.local/api/v1/details'>Application Details</a> | <a href='http://${{ values.app_name }}-${{ values.app_env }}.local/api/v1/healthz'>Health Status</a></p>
     </div>
 </body>
 </html>
