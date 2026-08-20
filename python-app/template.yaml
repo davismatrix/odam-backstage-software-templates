@@ -47,7 +47,7 @@ spec:
       action: publish:github
       input:
         description: This is ${{ parameters.app_name }}
-        repoUrl: github.com?owner=davismatrix&repo=${{ parameters.app_name }}
+        repoUrl: github.com?owner=Odam-Services-Limited&repo=${{ parameters.app_name }}
         protectDefaultBranch: false
 
     - id: register
