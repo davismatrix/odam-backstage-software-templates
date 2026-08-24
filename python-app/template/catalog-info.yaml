@@ -4,7 +4,7 @@ metadata:
   name: ${{ values.app_name }}
   description: T4 download app.
   annotations:
-    github.com/project-slug: davismatrix/${{ values.app_name }}
+    github.com/project-slug: Odam-Services-Limited/${{ values.app_name }}
     backstage.io/techdocs-ref: dir:.
 spec:
   type: service
