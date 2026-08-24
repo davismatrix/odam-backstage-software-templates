@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: davismatrix/${values.app_name}
+  repository: davismatrix/${{ values.app_name }}
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ${{ values.app_name }}-${{ values.app_env }}-latest
