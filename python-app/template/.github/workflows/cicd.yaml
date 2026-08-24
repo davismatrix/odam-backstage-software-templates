@@ -83,7 +83,7 @@ jobs:
             --dest-server https://kubernetes.default.svc \
             --dest-namespace ${{ values.app_env }} \
             --values values-${{ values.app_env }}.yaml \
-            --revision master \
+            --revision main \
             --sync-policy manual \
             --sync-option CreateNamespace=true
       -
