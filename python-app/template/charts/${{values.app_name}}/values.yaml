@@ -50,7 +50,7 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: ${{ values.app_name }}-${{ values.app_env }}.local
+    - host: ${{ values.app_name }}.local
       paths:
         - path: /
           pathType: Prefix
