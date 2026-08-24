@@ -58,13 +58,37 @@ jobs:
           curl -ksSL -o argocd-linux-amd64 https://argocd-server.argocd/download/argocd-linux-amd64
           sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
           rm argocd-linux-amd64
-      -
-        name: ArgoCD Deployment
+      - 
+        name: argocd login
         shell: bash
         run: |
-          argocd login argocd-server.argocd \
+            argocd login argocd-server.argocd \
             --username admin \
             --password ${{ '${{ secrets.ARGOCD_PASSWORD }}' }} \
             --insecure \
             --grpc-web
+      -
+        name: Ensure argocd repo and app exists
+        shell: bash
+        run: |
+
+          # Connect repo to argocd if not already connected
+          repo = "https://github.com/odam-services-limited/${{ values.app_name }}.git"
+          argocd repo list | grep "$repo" || argocd repo add "$repo"
+
+          # Create argocd app if not already created
+          arogcd app get ${{ values.app_name }} || argocd app create ${{ values.app_name }} \
+            --repo "$repo" \
+            --path charts/${{ values.app_name }} \
+            --dest-server https://kubernetes.default.svc \
+            --dest-namespace ${{ values.app_env }} \
+            --values values-${{ values.app_env }}.yaml \
+            --revision master \
+            --sync-policy manual \
+            --sync-option CreateNamespace=true
+      -
+        name: ArgoCD Deployment
+        shell: bash
+        run: |
           argocd app sync ${{ values.app_name }}
+          argocd app wait ${{ values.app_name }} --timeout 300
