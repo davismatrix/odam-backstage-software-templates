@@ -73,7 +73,7 @@ jobs:
         run: |
 
           # Connect repo to argocd if not already connected
-          repo = "https://github.com/odam-services-limited/${{ values.app_name }}.git"
+          repo="https://github.com/odam-services-limited/${{ values.app_name }}.git"
           argocd repo list | grep "$repo" || argocd repo add "$repo"
 
           # Create argocd app if not already created
