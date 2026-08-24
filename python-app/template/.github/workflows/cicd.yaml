@@ -77,7 +77,7 @@ jobs:
           argocd repo list | grep "$repo" || argocd repo add "$repo"
 
           # Create argocd app if not already created
-          arogcd app get ${{ values.app_name }} || argocd app create ${{ values.app_name }} \
+          argocd app get ${{ values.app_name }} || argocd app create ${{ values.app_name }} \
             --path charts/${{ values.app_name }} \
             --dest-server https://kubernetes.default.svc \
             --dest-namespace ${{ values.app_env }} \
